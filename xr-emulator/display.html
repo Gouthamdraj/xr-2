@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XR Glasses Emulator</title>
+    <link rel="stylesheet" href="emulator.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
+    </style>
+</head>
+<body>
+    <div class="xr-display">
+        <div class="status-bar">
+            <div class="connection-status disconnected">Disconnected</div>
+            <div class="battery">83%</div>
+            <div class="voice-status">Voice: Ready</div>
+            <div class="time" id="currentTime">--:--</div>
+        </div>
+        
+        <div class="message-container">
+            <div id="messageDisplay" class="welcome-message">Waiting for messages...</div>
+        </div>
+        
+        <div class="control-hints">
+            <p>Say "Clear message" to reset display</p>
+            <p>Say "Show history" to view past messages</p>
+        </div>
+    </div>
+
+    <script src="emulator.js"></script>
+</body>
+</html>

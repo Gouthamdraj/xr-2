@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XR Messaging Desktop</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>XR Messaging System</h1>
+        
+        <!-- User Identification Section -->
+        <div class="user-identification">
+            <div class="form-group">
+                <label for="usernameInput">Your Username:</label>
+                <input type="text" id="usernameInput" placeholder="Enter your username">
+            </div>
+            <div class="form-group">
+                <label for="xrIdInput">XR Glasses ID:</label>
+                <input type="text" id="xrIdInput" placeholder="XR-1234" value="XR-1234">
+            </div>
+        </div>
+        
+        <div class="status-container">
+            <div id="status" class="disconnected">Disconnected</div>
+            <button id="openEmulator">Open XR Emulator</button>
+        </div>
+        
+        <div class="message-controls">
+            <textarea id="messageInput" placeholder="Type your message here..."></textarea>
+            <div class="controls-row">
+                <label>
+                    <input type="checkbox" id="urgentCheckbox"> Urgent Message
+                </label>
+                <button id="sendButton">Send Message</button>
+            </div>
+        </div>
+        
+        <div class="connected-devices">
+            <h2>Connected Devices</h2>
+            <ul id="deviceList"></ul>
+        </div>
+        
+        <!-- Recent Messages Section -->
+        <div class="recent-messages">
+            <h2>Recent Messages</h2>
+            <div id="recentMessages"></div>
+        </div>
+        
+        <div class="message-history">
+            <h2>Message History</h2>
+            <div id="messageHistory"></div>
+        </div>
+    </div>
+
+    <script src="renderer.js"></script>
+</body>
+</html>
