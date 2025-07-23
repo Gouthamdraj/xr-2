@@ -57,3 +57,4 @@ Option B: Open xr-emulator/display.html directly in your browser (voice commands
 
 🎤 Voice Commands
 Say "clear message" in the XR emulator to clear displayed messages instantly.
+xr-messaging system status for webrtc
