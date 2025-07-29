@@ -1,3 +1,28 @@
+// =================== EXPRESS + NGROK URL ROUTE ===================
+const fs = require('fs');
+const path = require('path');
+const express = require('express');
+const app = express();
+
+// --- Serve ngrok signaling URL for frontend auto-detection ---
+app.get('/ngrok-url', (req, res) => {
+  // Default/fallback: change this to your prod ngrok URL!
+  let url = 'wss://b5435c8ada2d.ngrok-free.app';
+  try {
+    url = fs.readFileSync(path.join(__dirname, 'NGROK_URL.txt'), 'utf8').trim();
+  } catch (e) {}
+  res.json({ signalingUrl: url });
+});
+
+// --- (Optional) Serve static files, if using same backend for HTML/JS ---
+// app.use(express.static(path.join(__dirname, 'public')));
+
+// Start HTTP server on 3000 (or any port)
+const httpServer = app.listen(8081, () => {
+  console.log('[HTTP] Express server running on http://0.0.0.0:8081');
+});
+
+// =================== WEBSOCKET SERVER ============================
 const WebSocket = require('ws');
 // Bind to ALL interfaces so any device on LAN/WAN can connect:
 const wss = new WebSocket.Server({ host: '0.0.0.0', port: 8080, clientTracking: true });
@@ -204,7 +229,7 @@ function broadcastToTarget(data, sender) {
 function broadcastDeviceList() {
   const deviceList = Array.from(clients)
     .filter(c => c.deviceName)
-    .map(c => ({ name: c.deviceName, xrId: c.xrId }));
+    .map(c => ({ deviceName: c.deviceName, xrId: c.xrId }));
 
   const msg = JSON.stringify({ type: 'device_list', devices: deviceList });
 
@@ -231,11 +256,13 @@ wss.on('close', () => clearInterval(interval));
 process.on('SIGINT', () => {
   console.log('[WS] Closing server...');
   wss.close();
+  httpServer.close();
   process.exit();
 });
 process.on('SIGTERM', () => {
   console.log('[WS] Closing server...');
   wss.close();
+  httpServer.close();
   process.exit();
 });
 process.on('uncaughtException', (err) => {
